@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Truenat — Anatomy of a Micro-PCR Analyzer</title>
+    <meta name="description" content="An interactive 3D teardown of the Truenat chip-based real-time PCR system." />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Ccircle cx=%278%27 cy=%278%27 r=%277%27 fill=%27%23a6e86f%27/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas id="stage" aria-label="3D model of the Truenat analyzer"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="nav">
+      <a href="#top" class="brand"><span class="brand-mark"></span>Truenat <span class="muted">/ Anatomy</span></a>
+      <nav>
+        <a href="#inside">Inside</a>
+        <a href="#explore">Explore</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#curve">Reading results</a>
+      </nav>
+      <span class="nav-meta mono">Genetics Seminar · 2026</span>
+    </header>
+
+    <ol class="rail mono" aria-hidden="true"></ol>
+
+    <main>
+      <section class="hero" id="top" data-pose="hero">
+        <p class="eyebrow mono" data-speed="-0.15">Chip-based real-time PCR · Point-of-care</p>
+        <h1 class="hero-title">
+          <span class="line" data-speed="-0.25">Truenat,</span>
+          <span class="line italic" data-speed="-0.1">opened up.</span>
+        </h1>
+        <p class="lede" data-speed="-0.05">
+          A molecular diagnostics lab compressed into a battery-powered box and a chip the size of a fingertip.
+          Scroll to take it apart — then pick up the pieces yourself.
+        </p>
+        <dl class="hero-stats">
+          <div><dt class="mono">Sample → result</dt><dd>~1 hour</dd></div>
+          <div><dt class="mono">DNA per chip</dt><dd>6 µL</dd></div>
+          <div><dt class="mono">Power</dt><dd>Mains or battery</dd></div>
+        </dl>
+        <a class="scroll-cue mono" href="#inside"><span></span>Scroll</a>
+      </section>
+
+      <section class="chapter left" id="inside" data-pose="compact">
+        <div class="chapter-body reveal">
+          <span class="chapter-num" data-speed="0.18">01</span>
+          <p class="mono kicker">The idea</p>
+          <h2>A PCR lab, <em>shrunk to a lunchbox.</em></h2>
+          <p>
+            Conventional real-time PCR needs a thermal cycler, a fluorescence reader and a trained team in a reference
+            laboratory. Truenat moves the hardest part — fast, precise heating — onto a disposable chip, so the analyzer
+            around it only has to power, cool and watch.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter right" data-pose="inside">
+        <div class="chapter-body reveal">
+          <span class="chapter-num" data-speed="0.18">02</span>
+          <p class="mono kicker">Under the shell</p>
+          <h2>Eleven parts, <em>one job.</em></h2>
+          <p>
+            Fade the enclosure away and the layout appears: a chip bay under a light-tight lid, an optical module looking
+            up at the reaction, a fan and heat sink behind it, a battery, and the controller board that runs it all.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter left" data-pose="chip">
+        <div class="chapter-body reveal">
+          <span class="chapter-num" data-speed="0.18">03</span>
+          <p class="mono kicker">The micro-PCR chip</p>
+          <h2>The chip <em>heats itself.</em></h2>
+          <p>
+            Freeze-dried primers, probes and polymerase wait inside the reaction chamber. Add 6 µL of extracted DNA and a
+            thin-film heater printed around the chamber cycles it between ~95 °C and ~60 °C — doubling the target sequence
+            every cycle.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter right" data-pose="optics">
+        <div class="chapter-body reveal">
+          <span class="chapter-num" data-speed="0.18">04</span>
+          <p class="mono kicker">Real-time detection</p>
+          <h2>Light says <em>the DNA is there.</em></h2>
+          <p>
+            After every cycle an LED excites the fluorescent probes. Each copy of the target cuts a probe, separating
+            reporter from quencher, so the glow grows with the DNA. A photodetector logs it, cycle by cycle, into an
+            amplification curve.
+          </p>
+        </div>
+      </section>
+
+      <section class="chapter left" data-pose="exploded">
+        <div class="chapter-body reveal">
+          <span class="chapter-num" data-speed="0.18">05</span>
+          <p class="mono kicker">Exploded view</p>
+          <h2>Every layer, <em>pulled apart.</em></h2>
+          <p>Next, the model is yours. Rotate it, open it, select any part, and run a simulated test from chip to result.</p>
+        </div>
+      </section>
+
+      <section class="explore" id="explore" data-pose="explore">
+        <div class="explore-head">
+          <p class="mono kicker">06 — Interactive</p>
+          <h2>Explore the <em>anatomy</em></h2>
+          <p class="hint mono">Drag to rotate · Click a part or a marker</p>
+        </div>
+
+        <nav class="parts-index glass" aria-label="Components">
+          <p class="mono kicker">Components</p>
+          <ol id="parts-list"></ol>
+        </nav>
+
+        <div class="pins" id="pins"></div>
+
+        <article class="info glass" id="info" aria-live="polite" hidden>
+          <div class="info-top">
+            <span class="mono info-index" id="info-index"></span>
+            <div class="info-nav">
+              <button class="icon-btn" id="info-prev" aria-label="Previous part">←</button>
+              <button class="icon-btn" id="info-next" aria-label="Next part">→</button>
+              <button class="icon-btn" id="info-close" aria-label="Close">✕</button>
+            </div>
+          </div>
+          <p class="mono kicker" id="info-kicker"></p>
+          <h3 id="info-name"></h3>
+          <p id="info-summary"></p>
+          <p class="mono kicker sub">How it works</p>
+          <ol class="steps" id="info-how"></ol>
+          <dl class="facts" id="info-facts"></dl>
+        </article>
+
+        <div class="toolbar glass" role="toolbar" aria-label="View controls">
+          <div class="seg" role="group" aria-label="Assembly">
+            <button data-explode="0" class="on">Assembled</button>
+            <button data-explode="1">Exploded</button>
+          </div>
+          <label class="switch"><input type="checkbox" id="xray" checked /><span></span>X-ray</label>
+          <button class="btn-primary" id="run"><span class="dot"></span>Run a test</button>
+          <button class="btn-ghost" id="reset">Reset view</button>
+        </div>
+
+        <div class="hud glass" id="hud" hidden>
+          <div class="hud-row">
+            <span class="mono" id="hud-stage">Ready</span>
+            <span class="mono hud-temp" id="hud-temp">25.0 °C</span>
+          </div>
+          <canvas id="hud-plot" width="560" height="200"></canvas>
+          <div class="hud-row mono">
+            <span id="hud-cycle">Cycle 0 / 40</span>
+            <span class="legend"><i class="t"></i>Target <i class="c"></i>Control</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="workflow" id="workflow">
+        <div class="workflow-sticky">
+          <div class="workflow-head">
+            <p class="mono kicker">07 — Workflow</p>
+            <h2>From sample <em>to answer.</em></h2>
+          </div>
+          <div class="track" id="track">
+            <article class="card">
+              <figure class="card-media">
+                <img src="/src/assets/workflow/collect.jpg" alt="Blue- and red-capped specimen containers in a microbiology lab" width="960" height="720" loading="lazy" />
+                <span class="card-num mono">01 / 04</span>
+              </figure>
+              <h3>Collect</h3>
+              <p>A sputum sample (or swab, for other Truenat tests) is collected and liquefied in a lysis buffer.</p>
+              <a class="credit mono" href="https://commons.wikimedia.org/wiki/File:Microbiological_specimen_containers.jpg" target="_blank" rel="noopener">Photo · Ajay Kumar Chaurasiya · CC BY-SA 4.0 · cropped</a>
+            </article>
+            <article class="card">
+              <figure class="card-media">
+                <img src="/src/assets/workflow/extract.jpg" alt="Trueprep AUTO sample-preparation device" width="960" height="720" loading="lazy" />
+                <span class="card-num mono">02 / 04</span>
+              </figure>
+              <h3>Extract</h3>
+              <p>A companion device, Trueprep AUTO, purifies the DNA from the sample in a cartridge — about 20 minutes, hands-free.</p>
+              <a class="credit mono" href="https://commons.wikimedia.org/wiki/File:Molbio_Truenat_Molecular_Diagnostic_System.jpg" target="_blank" rel="noopener">Photo · Aliva Sahoo · CC BY-SA 4.0 · cropped</a>
+            </article>
+            <article class="card">
+              <figure class="card-media">
+                <img src="/src/assets/workflow/load.jpg" alt="A Truenat chip and a small sample vial on the bench beside the analyzer" width="960" height="720" loading="lazy" />
+                <span class="card-num mono">03 / 04</span>
+              </figure>
+              <h3>Load the chip</h3>
+              <p>6 µL of the purified DNA is pipetted onto a Truenat chip, which goes into the analyzer’s chip bay.</p>
+              <a class="credit mono" href="https://commons.wikimedia.org/wiki/File:Molbio_Truenat_Molecular_Diagnostic_System.jpg" target="_blank" rel="noopener">Photo · Aliva Sahoo · CC BY-SA 4.0 · cropped</a>
+            </article>
+            <article class="card">
+              <figure class="card-media">
+                <img src="/src/assets/workflow/detect.jpg" alt="Truelab Duo real-time PCR analyzer with its touchscreen" width="960" height="720" loading="lazy" />
+                <span class="card-num mono">04 / 04</span>
+              </figure>
+              <h3>Amplify & detect</h3>
+              <p>Real-time PCR runs on the chip. Fluorescence is read every cycle and the result appears on screen within the hour.</p>
+              <a class="credit mono" href="https://commons.wikimedia.org/wiki/File:Molbio_Truenat_Molecular_Diagnostic_System.jpg" target="_blank" rel="noopener">Photo · Aliva Sahoo · CC BY-SA 4.0 · cropped</a>
+            </article>
+          </div>
+          <div class="progress"><span id="track-bar"></span></div>
+        </div>
+      </section>
+
+      <section class="curve" id="curve">
+        <div class="curve-text reveal">
+          <p class="mono kicker">08 — Reading the result</p>
+          <h2>The cycle that <em>crosses the line.</em></h2>
+          <p>
+            Fluorescence stays at background until enough copies exist to be seen. The cycle at which the curve crosses
+            the threshold is the <strong>Ct value</strong>: the more target DNA in the sample, the earlier it crosses.
+          </p>
+          <p>
+            A second dye tracks an <strong>internal positive control</strong>. If the control does not amplify, the run is
+            invalid — protecting against false negatives from failed extraction or inhibitors.
+          </p>
+        </div>
+        <figure class="curve-fig glass reveal">
+          <canvas id="curve-plot" width="688" height="400"></canvas>
+          <figcaption class="mono">Simulated run · x-axis: PCR cycle number · y-axis: fluorescence, which rises with the amount of copied DNA · dashed line: detection threshold</figcaption>
+        </figure>
+      </section>
+
+      <footer class="footer">
+        <p class="footer-big"><em>Molecular testing,</em> closer to the patient.</p>
+        <div class="footer-meta mono">
+          <span>Interactive model for a genetics seminar</span>
+          <span>Stylised schematic — layout is illustrative, not an engineering drawing</span>
+          <span>Truenat® and Truelab® are trademarks of Molbio Diagnostics</span>
+        </div>
+      </footer>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
